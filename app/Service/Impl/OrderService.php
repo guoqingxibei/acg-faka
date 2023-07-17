@@ -782,7 +782,12 @@ class OrderService implements Order
 
         if ($commodity->contact_type == 2 && $commodity->send_email == 1 && $order->owner == 0) {
             try {
-                $this->email->send($order->contact, "【发货提醒】您购买的卡密发货啦", "您购买的卡密如下：" . $order->secret);
+                $formatted_secret = str_replace("\n", "<br>", $order->secret);
+                $this->email->send(
+                    $order->contact,
+                    "你购买的公众号聊天次数发货啦",
+                    "你购买的 <b>code</b> 如下：<br>" . $formatted_secret . "<br><br>直接复制 <b>code</b> 发送给公众号，即可激活聊天次数。有任何问题，联系微信：guoqingniubai。"
+                );
             } catch (\Exception|\Error $e) {
             }
         }
