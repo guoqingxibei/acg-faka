@@ -20,7 +20,7 @@
                 <p class="card-title"><i class="fa fa-gratipay" aria-hidden="true"></i> 购买</p>
             </div>
             <div class="card-block">
-                <fieldset class="form-group">
+                <fieldset class="form-group" style="display: none;">
                     <label for="type" style="font-size: 14px;">请选择商品分类</label>
                     <div id="type" class="category">
                     </div>
@@ -166,8 +166,8 @@
         list.forEach(category => {
             $(".category").append('<span class="category-' + category.id + ' button-click category-button ' + (category.commodity_count == 0 ? 'empty-commodity' : '') + '" ' + (category.commodity_count == 0 ? '' : 'onclick="getCommodity(this,' + category.id + ')"') + '>' + (category.icon ? '<img class="commodity-icon" src="' + category.icon + '">' : '') + ' ' + category.name + '</span>');
         });
-        if (defaultCategory) {
-            $('.category-' + defaultCategory).click(); //自动点击分类
+        if (list.length > 0) {
+            $('.category-' + list[0].id).click(); //自动点击第一个分类
             defaultCategory = null;
         }
     });
@@ -191,8 +191,8 @@
                 productInstance.append('<span class="button-click commodity-' + item.id + '" onclick="getCommodityInfo(this,' + item.id + ')" ' + ((item.card_count == 0 && item.delivery_way == 0 && !item.shared) ? 'style="background-color: #ced4dadb;opacity: 0.6;"' : '') + '>' + (item.cover ? '<img class="commodity-icon" src="' + item.cover + '">' : '') + ' ' + item.name + '</span>');
             });
 
-            if (defaultCommodity) {
-                $('.commodity-' + defaultCommodity).click(); //自动点击商品
+            if (list.length > 0) {
+                $('.commodity-' + list[0].id).click(); //自动点击第一个商品
                 defaultCommodity = null;
             }
         })
